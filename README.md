@@ -1,4 +1,3 @@
-# signallike-embedding
-Support page with code and results for the paper "Signal-domain representation of symbolic music for learning embedding spaces"
+# Musical symbolic representations and embeddings
 
-Here will be the code, the detailed construction process of the synthetic dataset and some generation results
+This is the support page for the paper "Signal-domain representation of symbolic music for learning embedding spaces" which is under review for [the 2020 Joint Conference on AI Music Creativity](https://boblsturm.github.io/aimusic2020/).
