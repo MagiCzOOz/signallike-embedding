@@ -135,6 +135,7 @@ class VAE(nn.Module):
         self.tf = teacher_forcing
         self.encoder = encoder
         self.decoder = decoder
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         # Layers
         self.hidden_to_mu = nn.Linear(2 * encoder.hidden_size, encoder.latent_size)
         self.hidden_to_sig = nn.Linear(2 * encoder.hidden_size, encoder.latent_size)
@@ -145,7 +146,6 @@ class VAE(nn.Module):
             batch_size = x[0].size(0)
         else :
             batch_size = x.size(0)
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
         # Encoder pass
         h_enc, c_enc = self.encoder.init_hidden(batch_size)
@@ -153,7 +153,7 @@ class VAE(nn.Module):
         # Reparametrization
         mu = self.hidden_to_mu(hidden)
         sig = self.hidden_to_sig(hidden)
-        eps = torch.randn_like(mu).detach().to(device)
+        eps = torch.randn_like(mu).detach().to(self.device)
         latent = (sig.exp().sqrt() * eps) + mu
         
         # Decoder pass
@@ -161,8 +161,11 @@ class VAE(nn.Module):
             # One hot encoding of the target for teacher forcing purpose
             target = torch.nn.functional.one_hot(x.squeeze(2).long(), 
                                                  self.input_size).float()
-        x_reconst = self.decoder(latent, target, batch_size,
-                                 teacher_forcing=self.tf, device=device)
+            x_reconst = self.decoder(latent, target, batch_size,
+                                     teacher_forcing=self.tf, device=self.device)
+        else :
+            x_reconst = self.decoder(latent, x, batch_size,
+                                     teacher_forcing=self.tf, device=self.device)
         
         return mu, sig, latent, x_reconst
     
@@ -212,6 +215,7 @@ class VAE(nn.Module):
         input_shape = (1, self.decoder.seq_length, self.decoder.input_size)
         db_trg = torch.zeros(input_shape)
         # Forward pass in the decoder
-        generated_bar = self.decoder(latent.unsqueeze(0), db_trg, teacher_forcing=False)
+        generated_bar = self.decoder(latent.unsqueeze(0), db_trg, batch_size = 1,
+                                     device=self.device, teacher_forcing=False)
         
         return generated_bar 

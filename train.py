@@ -9,7 +9,8 @@ Usage:
     main.py [-h | --help]
     main.py [--version]
     main.py [--gpu] [--gpudev GPUDEVICE] [--lr LR] [--maxiter MITER]
-            [--runname RNAME] [--inputrep REP] [--model M]
+            [--runname RNAME] [--inputrep REP] [--path P] [--bsize BSIZE]
+            [--nbframe NBFRAME] [--o OUT] [--save]
     
 Options:
     -h --help  Show this helper
@@ -78,8 +79,8 @@ torch.autograd.set_detect_anomaly(True)
 # Parameters
 train_path = arguments['--path'] + '/train'
 test_path = arguments['--path'] + '/test'
-batch_size = arguments['--bsize']
-nb_frame = arguments['--nbframe']
+batch_size = int(arguments['--bsize'])
+nb_frame = int(arguments['--nbframe'])
 if arguments['--o'] == 'None':
     output_dr = os.getcwd() + '/output'
 else :
@@ -187,8 +188,8 @@ for epoch in range(int(arguments['--maxiter'])):
             else :
                 x = x.cuda()
         # training pass
-        loss, kl_div, reconst_loss = model.training(x, loss_fn, optimizer, 
-                                                    w_kl, dataset)
+        loss, kl_div, reconst_loss = model.batch_pass(x, loss_fn, optimizer, 
+                                                      w_kl, dataset)
         loss_mean += loss
         kl_div_mean += kl_div
         reconst_loss_mean += reconst_loss
@@ -212,8 +213,8 @@ for epoch in range(int(arguments['--maxiter'])):
                 else :
                     x = x.cuda()
             # testing pass
-            loss, kl_div, reconst_loss = model.training(x, loss_fn, optimizer, 
-                                                        w_kl, dataset, test=True)
+            loss, kl_div, reconst_loss = model.batch_pass(x, loss_fn, optimizer, 
+                                                          w_kl, dataset, test=True)
             loss_mean_TEST += loss
             kl_div_mean_TEST += kl_div
             reconst_loss_mean_TEST += reconst_loss
