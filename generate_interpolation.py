@@ -6,9 +6,9 @@ Created on Tue Sep  8 10:57:30 2020
 @author: prang
 
 Usage:
-    main.py [-h | --help]
-    main.py [--version]
-    main.py [--inputrep REP] [--mpath MP] [--dpath DP] [--o OUT] [--nbframe NBFRAME]
+    generate_interpolation.py [-h | --help]
+    generate_interpolation.py [--version]
+    generate_interpolation.py [--inputrep REP] [--mpath MP] [--dpath DP] [--o OUT] [--nbframe NBFRAME]
             [--start START] [--end END] [--nbpoints POINTS] [--name NAME]
     
 Options:
