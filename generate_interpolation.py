@@ -21,7 +21,7 @@ Options:
     --nbframe NBFRAME  Number of frames per bar [default: 16]
     --start START  Path of the starting bar [default: None]
     --end END  Path of the ending bar [default: None]
-    --nbpoints POINTS  Number of points in the interpolation [default: 32]
+    --nbpoints POINTS  Number of points in the interpolation [default: 24]
     --name NAME  Name of the final MIDI files [default: None]
 """
 

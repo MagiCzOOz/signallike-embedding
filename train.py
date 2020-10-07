@@ -6,9 +6,9 @@ Created on Mon Aug 31 13:33:35 2020
 @author: prang
 
 Usage:
-    main.py [-h | --help]
-    main.py [--version]
-    main.py [--gpu] [--gpudev GPUDEVICE] [--lr LR] [--maxiter MITER]
+    train.py [-h | --help]
+    train.py [--version]
+    train.py [--gpu] [--gpudev GPUDEVICE] [--lr LR] [--maxiter MITER]
             [--runname RNAME] [--inputrep REP] [--path P] [--bsize BSIZE]
             [--nbframe NBFRAME] [--o OUT] [--save]
     
