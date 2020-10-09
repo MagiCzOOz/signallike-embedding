@@ -52,7 +52,7 @@ You can train the model on your own dataset by using the `train.py` function wit
       --o OUT  Path of the output directory [default: None]
       --save  Save the models during the training or not [default: True]
 
-The possible values for the input representations are *signallike*, *pianoroll*, *midilike* and *notetuple*. See the code in `representations.py` for the implementation details of each representations.
+The possible values for the input representations are *signallike*, *pianoroll*, *midilike*, *notetuple* and *midimono*. See the code in `representations.py` for the implementation details of each representations.
 
 Your MIDI files folder have to contained a *train* and a *test* folder where all the files have been splitted at your convenience.
 
